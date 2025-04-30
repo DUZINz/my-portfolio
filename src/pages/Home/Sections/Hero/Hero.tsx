@@ -1,5 +1,5 @@
 import { styled } from "@mui/material"
-import Image from "../../../../assets/images/dudu.jpg"
+import Image from "../../../../assets/images/fotoEduardo.jpg"
 
 const Hero = () => {
 
