@@ -39,19 +39,19 @@ const Contact = () => {
     {
       icon: <Email />,
       title: 'Email',
-      value: 'eduardo@email.com',
-      link: 'mailto:eduardo@email.com',
+      value: 'eduardogrunitzky@gmail.com',
+      link: 'mailto:eduardogrunitzky@gmail.com',
     },
     {
       icon: <Phone />,
       title: 'Telefone',
-      value: '+55 (11) 99999-9999',
-      link: 'tel:+5511999999999',
+      value: '+55 (41) 98788-6113',
+      link: 'tel:+5541987886113',
     },
     {
       icon: <LocationOn />,
       title: 'Localização',
-      value: 'São Paulo, SP - Brasil',
+      value: 'Curitiba, PR, Brasil',
       link: '',
     },
   ];
@@ -60,19 +60,19 @@ const Contact = () => {
     {
       icon: <LinkedIn />,
       name: 'LinkedIn',
-      url: 'https://linkedin.com/in/eduardo',
+      url: '',
       color: '#0077B5',
     },
     {
       icon: <GitHub />,
       name: 'GitHub',
-      url: 'https://github.com/eduardo',
+      url: 'https://github.com/DUZINz',
       color: '#333',
     },
     {
       icon: <WhatsApp />,
       name: 'WhatsApp',
-      url: 'https://wa.me/5511999999999',
+      url: 'https://wa.me/5541987886113',
       color: '#25D366',
     },
   ];

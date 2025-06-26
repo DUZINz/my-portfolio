@@ -8,7 +8,7 @@ import {
 } from '@mui/material';
 import { motion } from 'framer-motion';
 import { Download, GitHub, LinkedIn, Email } from '@mui/icons-material';
-import Image from '../../../../assets/images/fotoEduardo.jpg';
+import Image from '../../../../assets/images/fotominha.jpg';
 
 const Hero = () => {
 

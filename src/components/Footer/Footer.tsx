@@ -17,7 +17,7 @@ const Footer = () => {
   const socialLinks = [
     {
       icon: <GitHub />,
-      url: 'https://github.com/eduardo',
+      url: 'https://github.com/DUZINz',
       label: 'GitHub',
     },
     {
@@ -27,12 +27,12 @@ const Footer = () => {
     },
     {
       icon: <Email />,
-      url: 'mailto:eduardo@email.com',
+      url: 'mailto:eduardogrunitzky@gmail.com',
       label: 'Email',
     },
     {
       icon: <WhatsApp />,
-      url: 'https://wa.me/5511999999999',
+      url: 'https://wa.me/5541987886113',
       label: 'WhatsApp',
     },
   ];

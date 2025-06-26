@@ -21,7 +21,7 @@ const About = () => {
   const skills = [
     'JavaScript', 'TypeScript', 'React', 'Node.js', 'Python',
     'MongoDB', 'PostgreSQL', 'AWS', 'Docker', 'Git',
-    'Next.js', 'Express.js', 'Material-UI', 'Tailwind CSS'
+    'Java', 'PHP', 'Linux'
   ];
 
   const services = [
