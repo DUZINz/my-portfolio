@@ -101,13 +101,13 @@ const Hero = () => {
                     fontWeight: 700,
                     mb: 2,
                     fontSize: { xs: '2.5rem', md: '4rem', lg: '5rem' },
-                    background: 'linear-gradient(45deg, #64ffda, #f50057)',
+                    background: 'linear-gradient(45deg, #64ffda, #f7f7f7ff)',
                     backgroundClip: 'text',
                     WebkitBackgroundClip: 'text',
                     WebkitTextFillColor: 'transparent',
                   }}
                 >
-                  Eduardo
+                  Eduardo Grunitzky
                 </Typography>
               </motion.div>
 
@@ -187,7 +187,7 @@ const Hero = () => {
                 <Stack direction="row" spacing={2} justifyContent={{ xs: 'center', md: 'flex-start' }}>
                   <Button
                     startIcon={<GitHub />}
-                    href="https://github.com/eduardo"
+                    href="https://github.com/DUZINz"
                     target="_blank"
                     sx={{ color: 'text.secondary', '&:hover': { color: 'primary.main' } }}
                   >
@@ -195,7 +195,7 @@ const Hero = () => {
                   </Button>
                   <Button
                     startIcon={<LinkedIn />}
-                    href="https://linkedin.com/in/eduardo"
+                    href="https://linkedin.com/in/eduardo-grunitzky-65400b1b1"
                     target="_blank"
                     sx={{ color: 'text.secondary', '&:hover': { color: 'primary.main' } }}
                   >

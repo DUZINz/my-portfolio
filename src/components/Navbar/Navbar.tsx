@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {
   AppBar,
   Toolbar,
-  Typography,
+  // Typography,
   Button,
   Box,
   useScrollTrigger,
@@ -106,7 +106,7 @@ const Navbar = () => {
           }}
         >
           <Toolbar sx={{ justifyContent: 'space-between', px: { xs: 2, md: 4 } }}>
-            <Typography
+            {/* <Typography
               variant="h6"
               component="div"
               sx={{
@@ -117,7 +117,7 @@ const Navbar = () => {
               onClick={() => scrollToSection('#hero')}
             >
               Eduardo
-            </Typography>
+            </Typography> */}
 
             {isMobile ? (
               <IconButton

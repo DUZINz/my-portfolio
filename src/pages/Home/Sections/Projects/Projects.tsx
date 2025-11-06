@@ -335,7 +335,7 @@ const Projects = () => {
                 variant="outlined"
                 size="large"
                 startIcon={<GitHub />}
-                href="https://github.com/eduardo"
+                href="https://github.com/DUZINz"
                 target="_blank"
                 sx={{
                   borderColor: 'primary.main',
