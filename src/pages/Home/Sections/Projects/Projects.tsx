@@ -19,70 +19,79 @@ import {
   Web,
   Storage,
 } from '@mui/icons-material';
+import { useEffect, useState } from 'react';
+import Loading from '../../../../components/Loading/Loading';
+
+interface GitHubRepo {
+  id: number;
+  name: string;
+  description: string | null;
+  language: string | null;
+  topics?: string[];
+  html_url: string;
+  homepage?: string | null;
+}
+
+interface Project {
+  id: number;
+  title: string;
+  description: string;
+  image: string;
+  technologies: string[];
+  githubUrl: string;
+  liveUrl: string;
+  featured: boolean;
+}
 
 const Projects = () => {
-  const projects = [
-    {
-      id: 1,
-      title: 'Sistema de estudos para o ENEM',
-      description: 'Plataforma de estudos personalizada para o ENEM com simulados, redações, monitoramento de progresso e recomendações de estudo.',
-      image: '/api/placeholder/400/250',
-      technologies: ['React', 'Node.js', 'FireBase', 'TypeScript', 'API Gemini'],
-      githubUrl: 'https://github.com/DUZINz/enem-genius',
-      liveUrl: 'https://enemgenius.vercel.app',
-      featured: true,
-    },
-    {
-      id: 2,
-      title: 'Task Manager App',
-      description: 'Aplicativo de gerenciamento de tarefas com colaboração em tempo real, notificações e sistema de produtividade.',
-      image: '/api/placeholder/400/250',
-      technologies: ['React', 'TypeScript', 'Firebase', 'Material-UI'],
-      githubUrl: 'https://github.com/eduardo/task-manager',
-      liveUrl: 'https://taskmanager-app.vercel.app',
-      featured: true,
-    },
-    {
-      id: 3,
-      title: 'Weather Dashboard',
-      description: 'Dashboard meteorológico com previsões detalhadas, mapas interativos e histórico de dados climáticos.',
-      image: '/api/placeholder/400/250',
-      technologies: ['React', 'API REST', 'Chart.js', 'Styled Components'],
-      githubUrl: 'https://github.com/eduardo/weather-dashboard',
-      liveUrl: 'https://weather-dashboard-app.vercel.app',
-      featured: false,
-    },
-    {
-      id: 4,
-      title: 'Social Media API',
-      description: 'API REST para rede social com autenticação, posts, comentários, sistema de likes e upload de imagens.',
-      image: '/api/placeholder/400/250',
-      technologies: ['Node.js', 'Express', 'PostgreSQL', 'JWT', 'AWS S3'],
-      githubUrl: 'https://github.com/eduardo/social-api',
-      liveUrl: '',
-      featured: false,
-    },
-    {
-      id: 5,
-      title: 'Real Estate Platform',
-      description: 'Plataforma imobiliária com busca avançada, mapas, sistema de favoritos e agendamento de visitas.',
-      image: '/api/placeholder/400/250',
-      technologies: ['Next.js', 'TypeScript', 'Prisma', 'Google Maps'],
-      githubUrl: 'https://github.com/eduardo/real-estate',
-      liveUrl: 'https://realestate-platform.vercel.app',
-      featured: true,
-    },
-    {
-      id: 6,
-      title: 'Blog CMS',
-      description: 'Sistema de gerenciamento de conteúdo para blogs com editor rico, SEO otimizado e sistema de comentários.',
-      image: '/api/placeholder/400/250',
-      technologies: ['React', 'Node.js', 'MongoDB', 'TinyMCE'],
-      githubUrl: 'https://github.com/eduardo/blog-cms',
-      liveUrl: 'https://blog-cms-demo.vercel.app',
-      featured: false,
-    },
-  ];
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchRepos = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const res = await fetch(
+          'https://api.github.com/users/DUZINz/repos?per_page=100&sort=updated',
+          {
+            headers: {
+              Accept: 'application/vnd.github+json',
+              'X-GitHub-Api-Version': '2022-11-28',
+            },
+          }
+        );
+        if (!res.ok) {
+          throw new Error(`GitHub API error: ${res.status}`);
+        }
+        const data = await res.json() as GitHubRepo[];
+
+        const mapped: Project[] = data.map((repo) => ({
+          id: repo.id,
+          title: repo.name,
+          description: repo.description || 'Sem descrição.',
+          image: '',
+          technologies: [
+            ...(repo.language ? [repo.language] : []),
+            ...(repo.topics && repo.topics.length ? repo.topics : []),
+          ],
+          githubUrl: repo.html_url,
+          liveUrl: repo.homepage || '',
+          featured: Array.isArray(repo.topics) && repo.topics.includes('featured'),
+        }));
+
+        setProjects(mapped);
+      } catch (err: unknown) {
+        const message = err instanceof Error ? err.message : String(err);
+        setError(message || 'Erro ao buscar repositórios');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchRepos();
+  }, []);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -110,11 +119,29 @@ const Projects = () => {
     if (technologies.some(tech => ['React', 'Next.js', 'Vue'].includes(tech))) {
       return <Web />;
     }
-    if (technologies.some(tech => ['Node.js', 'Express', 'API'].includes(tech))) {
+    if (technologies.some(tech => ['Node', 'Node.js', 'Express', 'API'].includes(tech))) {
       return <Storage />;
     }
     return <Code />;
   };
+
+  if (loading) return <Loading />;
+  if (error) {
+    return (
+      <Box id="projects" sx={{ py: { xs: 8, md: 12 }, backgroundColor: 'background.paper' }}>
+        <Container maxWidth="lg">
+          <Typography variant="h4" sx={{ color: 'secondary.main', textAlign: 'center', my: 6 }}>
+            Erro ao carregar projetos: {error}
+          </Typography>
+          <Box sx={{ textAlign: 'center' }}>
+            <Button variant="contained" href="https://github.com/DUZINz" target="_blank">
+              Ver perfil no GitHub
+            </Button>
+          </Box>
+        </Container>
+      </Box>
+    );
+  }
 
   return (
     <Box
@@ -155,7 +182,7 @@ const Projects = () => {
                   mx: 'auto',
                 }}
               >
-                Alguns dos projetos que desenvolvi usando as tecnologias mais modernas
+                Repositórios públicos do perfil GitHub <strong>DUZINz</strong>
               </Typography>
             </Box>
           </motion.div>
@@ -163,11 +190,11 @@ const Projects = () => {
           {/* Grid de Projetos */}
           <Grid container spacing={4}>
             {projects.map((project) => (
-              <Grid 
-                item 
-                xs={12} 
-                md={project.featured ? 12 : 6} 
-                lg={project.featured ? 8 : 4} 
+              <Grid
+                item
+                xs={12}
+                md={project.featured ? 12 : 6}
+                lg={project.featured ? 8 : 4}
                 key={project.id}
               >
                 <motion.div
@@ -179,9 +206,9 @@ const Projects = () => {
                     sx={{
                       height: '100%',
                       display: 'flex',
-                      flexDirection: { 
-                        xs: 'column', 
-                        md: project.featured ? 'row' : 'column' 
+                      flexDirection: {
+                        xs: 'column',
+                        md: project.featured ? 'row' : 'column',
                       },
                       backgroundColor: 'background.default',
                       borderRadius: 3,
@@ -192,7 +219,7 @@ const Projects = () => {
                       },
                     }}
                   >
-                    {/* Imagem do Projeto */}
+                    {/* Imagem / Ícone */}
                     <CardMedia
                       sx={{
                         height: { xs: 200, md: project.featured ? 300 : 200 },
@@ -221,11 +248,11 @@ const Projects = () => {
                     </CardMedia>
 
                     {/* Conteúdo do Projeto */}
-                    <Box 
-                      sx={{ 
-                        display: 'flex', 
-                        flexDirection: 'column', 
-                        flex: 1 
+                    <Box
+                      sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        flex: 1,
                       }}
                     >
                       <CardContent sx={{ flexGrow: 1, p: 3 }}>
@@ -240,7 +267,7 @@ const Projects = () => {
                         >
                           {project.title}
                         </Typography>
-                        
+
                         <Typography
                           variant="body1"
                           sx={{
@@ -261,19 +288,23 @@ const Projects = () => {
                             mb: 3,
                           }}
                         >
-                          {project.technologies.map((tech) => (
-                            <Chip
-                              key={tech}
-                              label={tech}
-                              size="small"
-                              sx={{
-                                backgroundColor: 'rgba(100, 255, 218, 0.1)',
-                                color: 'primary.main',
-                                borderColor: 'primary.main',
-                                border: '1px solid',
-                              }}
-                            />
-                          ))}
+                          {project.technologies && project.technologies.length ? (
+                            project.technologies.map((tech: string, idx: number) => (
+                              <Chip
+                                key={tech + idx}
+                                label={tech}
+                                size="small"
+                                sx={{
+                                  backgroundColor: 'rgba(100, 255, 218, 0.1)',
+                                  color: 'primary.main',
+                                  borderColor: 'primary.main',
+                                  border: '1px solid',
+                                }}
+                              />
+                            ))
+                          ) : (
+                            <Chip label="Sem linguagem detectada" size="small" />
+                          )}
                         </Box>
                       </CardContent>
 
@@ -299,7 +330,7 @@ const Projects = () => {
                           >
                             <GitHub />
                           </IconButton>
-                          
+
                           {project.liveUrl && (
                             <Button
                               variant="outlined"
