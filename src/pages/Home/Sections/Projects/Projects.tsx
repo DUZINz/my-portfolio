@@ -24,12 +24,12 @@ const Projects = () => {
   const projects = [
     {
       id: 1,
-      title: 'E-commerce Full Stack',
-      description: 'Plataforma completa de e-commerce com painel administrativo, sistema de pagamentos, autenticação e gerenciamento de produtos.',
+      title: 'Sistema de estudos para o ENEM',
+      description: 'Plataforma de estudos personalizada para o ENEM com simulados, redações, monitoramento de progresso e recomendações de estudo.',
       image: '/api/placeholder/400/250',
-      technologies: ['React', 'Node.js', 'MongoDB', 'Stripe', 'JWT'],
-      githubUrl: 'https://github.com/eduardo/ecommerce',
-      liveUrl: 'https://ecommerce-demo.vercel.app',
+      technologies: ['React', 'Node.js', 'FireBase', 'TypeScript', 'API Gemini'],
+      githubUrl: 'https://github.com/DUZINz/enem-genius',
+      liveUrl: 'https://enemgenius.vercel.app',
       featured: true,
     },
     {
