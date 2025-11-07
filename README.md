@@ -55,7 +55,3 @@ MIT — veja LICENSE
 - Email: eduardogrunitzky@gmail.com
 - GitHub: https://github.com/DUZINz
 - LinkedIn: https://linkedin.com/in/eduardo-grunitzky-65400b1b1/
-
----
-
-Deseja que eu automaticemente troque a fetch para usar `VITE_GITHUB_USER` e atualize o Projects.tsx?
